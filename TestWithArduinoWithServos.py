@@ -1,6 +1,7 @@
 # type: ignore
 import serial
 import threading
+import time
 
 sport_cats = [
     "321333454",
@@ -60,16 +61,19 @@ work_cats = [
     "162373854",
     "1282523854",
     "160423354",
-    "1463454",
+    "01463454",
     "641313454",
     "160403354",
-    "1443454",
+    "01443454",
     "961293454",
     "176383354",
     "161423454",
     "1601273454",
     "192363354"
 ]
+
+start_time = 0
+end_time = 0
 
 class RFIDReader:
     def __init__(self, port, baud, callback):
@@ -152,7 +156,7 @@ class ProbabilityUI:
         self.root.bind("<Escape>", lambda e: self.root.destroy())
 
         self.rfid = RFIDReader(
-            port="/dev/tty.usbserial-10",
+            port="/dev/tty.usbserial-110",
             baud=9600,  
             callback=lambda uid: self.root.after(0, self.on_rfid_scan, uid))
     
@@ -253,6 +257,14 @@ class ProbabilityUI:
         self.root.mainloop()
 
 
+start_time = time.time()
 ui = ProbabilityUI(["Work Cats", "Sport Cats", "Musical Cats"])
 ui.update([33, 33, 33])
 ui.run()
+end_time = time.time()
+
+from datetime import datetime
+timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+with open("times.txt", "a", encoding="UTF-8") as f:
+    print("TESTING")
+    f.write(f"{timestamp} | {end_time - start_time:.2f}\n")

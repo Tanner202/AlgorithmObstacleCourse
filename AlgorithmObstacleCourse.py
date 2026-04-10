@@ -104,7 +104,6 @@ class ProbabilityUI:
     def run(self):
         self.root.mainloop()
 
-
-ui = ProbabilityUI(["Animals", "Space", "Ocean"])
-ui.update([75, 10, 15])
+ui = ProbabilityUI(["Work Cats", "Sport Cats", "Musical Cats"])
+ui.update([22, 66, 22])
 ui.run()
